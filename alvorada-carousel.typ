@@ -99,7 +99,7 @@
 #title-page("Alvorada", subtitle: "por um novo alvorecer", number: 1)
 #pagebreak()
 
-#image-page("annunciation-fra-angelico.jpg", caption: "A Anunciação · Fra Angelico", number: 2, bg: "bg-blur-a.png")
+#image-page("annunciation-fra-angelico.jpg", caption: "A Anunciação · Fra Angelico", number: 2)
 #pagebreak()
 
 #text-page(
@@ -111,7 +111,7 @@
 )
 #pagebreak()
 
-#image-page("annunciation-caravaggio.jpg", caption: "A Anunciação · Caravaggio", number: 4, bg: "bg-blur-b.png")
+#image-page("annunciation-caravaggio.jpg", caption: "A Anunciação · Caravaggio", number: 4)
 #pagebreak()
 
 #text-page(
@@ -119,7 +119,6 @@
   body: "Nada permanece exatamente como era. A fé oferece outra medida para o tempo: uma confiança paciente, capaz de atravessar a mudança sem perder o centro.",
   kicker: "Santa Teresa d'Ávila",
   number: 5,
-  bg: "bg-noise.png",
 )
 #pagebreak()
 
@@ -128,11 +127,10 @@
   body: "Há uma noite que não é fim, mas passagem. Nela, aquilo que parecia separado se aproxima, e a espera começa a revelar uma forma de encontro.",
   kicker: "São João da Cruz · Noite Escura",
   number: 6,
-  bg: "bg-blur-a.png",
 )
 #pagebreak()
 
-#image-page("Pasted image (3).png", caption: "A imagem como memória", number: 7, bg: "bg-blur-b.png")
+#image-page("Pasted image (3).png", caption: "A imagem como memória", number: 7)
 #pagebreak()
 
 #text-page(
@@ -140,8 +138,8 @@
   body: "Ela aparece primeiro como uma alteração quase imperceptível na cor das coisas. Depois, como uma forma de reconhecer o caminho. Alvorada é esse intervalo entre a noite que termina e a luz que ainda está por vir.",
   kicker: "Alvorada · caderno de imagens",
   number: 8,
-  bg: "bg-noise.png",
+  bg: "bg-blur-a.png",
 )
 #pagebreak()
 
-#title-page("Alvorada", subtitle: "por um novo alvorecer", number: 9, bg: "bg-blur-a.png")
+#title-page("Alvorada", subtitle: "por um novo alvorecer", number: 9)
