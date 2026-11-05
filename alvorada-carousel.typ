@@ -32,7 +32,7 @@
 )
 
 #let mark = align(right)[
-  #text(size: 14pt, weight: "bold", tracking: 1.5pt)[ALVORADA]
+  #text(size: 42pt, weight: "bold", tracking: 1.5pt)[ALVORADA]
 ]
 
 #let footer(number: none) = {
@@ -41,7 +41,7 @@
   ]
   if number != none {
     place(bottom + right, dx: -104pt, dy: -50pt)[
-      #text(size: 14pt)[#number]
+      #text(size: 42pt)[#number]
     ]
   }
 }
@@ -53,10 +53,10 @@
     align(center + horizon)[
       #mark
       #v(132pt)
-      #text(size: 64pt, weight: "regular")[#title]
+      #text(size: 192pt, weight: "regular")[#title]
       #if subtitle != none [
         #v(28pt)
-        #text(size: 22pt)[#subtitle]
+        #text(size: 66pt)[#subtitle]
       ]
     ]
   )
@@ -68,16 +68,16 @@
   if bg != none { backdrop(bg) }
   frame({
     if kicker != none {
-      text(size: 14pt, weight: "bold", tracking: 1.2pt, upper(kicker))
+      text(size: 42pt, weight: "bold", tracking: 1.2pt, upper(kicker))
       v(76pt)
     }
     block(width: 760pt)[
-      #text(size: 56pt, weight: "regular")[#heading]
+      #text(size: 168pt, weight: "regular")[#heading]
     ]
     if body != none {
       v(44pt)
       block(width: 720pt)[
-        #text(size: 22pt)[#body]
+        #text(size: 66pt)[#body]
       ]
     }
   })
@@ -93,7 +93,7 @@
     ]
     if caption != none {
       v(24pt)
-      align(center)[#text(size: 18pt)[#caption]]
+      align(center)[#text(size: 54pt)[#caption]]
     }
   })
   footer(number: number)
@@ -108,7 +108,7 @@
 
 #text-page(
   [Fizestes-nos #linebreak() para Vós],
-  body: "A inquietação não é apenas ausência. É também procura, movimento e desejo de encontrar um lugar onde o coração possa repousar.",
+  body: "A inquietação também é procura. O coração busca um lugar onde possa repousar.",
   kicker: "Santo Agostinho · Confissões, I, 1, 1",
   number: 3,
   bg: "bg-noise.png",
@@ -120,7 +120,7 @@
 
 #text-page(
   [Nada te #linebreak() perturbe],
-  body: "Nada permanece exatamente como era. A fé oferece outra medida para o tempo: uma confiança paciente, capaz de atravessar a mudança sem perder o centro.",
+  body: "Tudo passa. A fé permanece. É uma confiança paciente para atravessar a mudança sem perder o centro.",
   kicker: "Santa Teresa d'Ávila",
   number: 5,
 )
@@ -128,7 +128,7 @@
 
 #text-page(
   [Ditosa #linebreak() noite],
-  body: "Há uma noite que não é fim, mas passagem. Nela, aquilo que parecia separado se aproxima, e a espera começa a revelar uma forma de encontro.",
+  body: "A noite também pode ser passagem. O que parecia separado começa a se aproximar.",
   kicker: "São João da Cruz · Noite Escura",
   number: 6,
 )
@@ -139,7 +139,7 @@
 
 #text-page(
   [A manhã não chega #linebreak() de uma vez],
-  body: "Ela aparece primeiro como uma alteração quase imperceptível na cor das coisas. Depois, como uma forma de reconhecer o caminho. Alvorada é esse intervalo entre a noite que termina e a luz que ainda está por vir.",
+  body: "A manhã aparece primeiro como uma mudança na cor das coisas. Alvorada é o intervalo entre a noite e a luz.",
   kicker: "Alvorada · caderno de imagens",
   number: 8,
   bg: "bg-blur-a.png",
