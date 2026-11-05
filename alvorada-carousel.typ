@@ -18,7 +18,7 @@
   lang: "pt",
   hyphenate: false,
 )
-#set par(leading: 1.35em)
+#set par(leading: 0.35em)
 
 #let frame(body) = block(
   width: 100%,
@@ -70,6 +70,7 @@
       v(76pt)
     }
     block(width: 760pt)[
+      #set par(leading: 0.05em)
       #text(size: 84pt, weight: "regular")[#heading]
     ]
     if body != none {
