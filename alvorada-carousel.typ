@@ -35,11 +35,13 @@
   #text(size: 21pt, weight: "bold", tracking: 1.5pt)[movimento alvorada]
 ]
 
-#let footer(number: none) = {
+#let footer(number: none, on_left: false) = {
   if number != none {
-    place(bottom + right, dx: -104pt, dy: -50pt)[
-      #text(size: 21pt)[#number]
-    ]
+    if on_left {
+      place(bottom + left, dx: 104pt, dy: -50pt)[#text(size: 21pt)[#number]]
+    } else {
+      place(bottom + right, dx: -104pt, dy: -50pt)[#text(size: 21pt)[#number]]
+    }
   }
 }
 
@@ -61,8 +63,11 @@
 }
 
 // Use this for text-led carousel cards. Keep titles short for the book feel.
-#let text-page(heading, body: none, kicker: none, number: none, bg: none) = {
+#let text-page(heading, body: none, kicker: none, number: none, bg: none, seal: none) = {
   if bg != none { backdrop(bg) }
+  if seal != none {
+    place(bottom + right, dx: -76pt, dy: -112pt)[#image(seal, width: 340pt)]
+  }
   header
   frame({
     if kicker != none {
@@ -97,6 +102,20 @@
     }
   })
   footer(number: number)
+}
+
+// Default ending: supplied blackletter A vector, aligned flush to bottom and right.
+#let closing-page(number: none) = {
+  header
+  place(bottom + right)[#image("alvorada-medieval-a.svg", width: 500pt)]
+  footer(number: number, on_left: true)
+}
+
+// Occasional alternate ending using the pixelated Alvorada crest.
+#let closing-seal-page(number: none) = {
+  header
+  place(bottom + right)[#image("brasaoalv-pixel.png", width: 440pt)]
+  footer(number: number, on_left: true)
 }
 
 // Replace these example pages with your own sequence. Every page stays 1:1.
@@ -143,7 +162,8 @@
   kicker: "Alvorada · caderno de imagens",
   number: 8,
   bg: "bg-blur-a.png",
+  seal: "brasaoalv-watermark.png",
 )
 #pagebreak()
 
-#title-page("Alvorada", subtitle: "por um novo alvorecer", number: 9)
+#closing-page(number: 9)
