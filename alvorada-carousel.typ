@@ -31,17 +31,14 @@
   image(path, width: 1080pt, height: 1080pt, fit: "cover"),
 )
 
-#let mark = align(right)[
-  #text(size: 42pt, weight: "bold", tracking: 1.5pt)[ALVORADA]
+#let header = place(top + center, dy: 72pt)[
+  #text(size: 21pt, weight: "bold", tracking: 1.5pt)[movimento alvorada]
 ]
 
 #let footer(number: none) = {
-  place(bottom + left, dx: 104pt, dy: -54pt)[
-    #image("alvorada-logo.png", width: 28pt, height: 28pt, fit: "contain")
-  ]
   if number != none {
     place(bottom + right, dx: -104pt, dy: -50pt)[
-      #text(size: 42pt)[#number]
+      #text(size: 21pt)[#number]
     ]
   }
 }
@@ -49,14 +46,14 @@
 // Use this for a strong opening or closing card.
 #let title-page(title, subtitle: none, number: none, bg: none) = {
   if bg != none { backdrop(bg) }
+  header
   frame(
     align(center + horizon)[
-      #mark
       #v(132pt)
-      #text(size: 192pt, weight: "regular")[#title]
+      #text(size: 96pt, weight: "regular")[#title]
       #if subtitle != none [
         #v(28pt)
-        #text(size: 66pt)[#subtitle]
+        #text(size: 33pt)[#subtitle]
       ]
     ]
   )
@@ -66,18 +63,19 @@
 // Use this for text-led carousel cards. Keep titles short for the book feel.
 #let text-page(heading, body: none, kicker: none, number: none, bg: none) = {
   if bg != none { backdrop(bg) }
+  header
   frame({
     if kicker != none {
-      text(size: 42pt, weight: "bold", tracking: 1.2pt, upper(kicker))
+      text(size: 21pt, weight: "bold", tracking: 1.2pt, upper(kicker))
       v(76pt)
     }
     block(width: 760pt)[
-      #text(size: 168pt, weight: "regular")[#heading]
+      #text(size: 84pt, weight: "regular")[#heading]
     ]
     if body != none {
       v(44pt)
       block(width: 720pt)[
-        #text(size: 66pt)[#body]
+        #text(size: 33pt)[#body]
       ]
     }
   })
@@ -87,13 +85,14 @@
 // Use this for artwork. Images are contained, never cropped or stretched.
 #let image-page(path, caption: none, number: none, bg: none) = {
   if bg != none { backdrop(bg) }
+  header
   frame({
     align(center)[
       #image(path, width: 908pt, height: 820pt, fit: "contain")
     ]
     if caption != none {
       v(24pt)
-      align(center)[#text(size: 54pt)[#caption]]
+      align(center)[#text(size: 27pt)[#caption]]
     }
   })
   footer(number: number)
