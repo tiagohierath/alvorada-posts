@@ -1,0 +1,189 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#00035d">
+  <title>Alvorada | Chrome A</title>
+  <style>
+    html, body { width: 100%; height: 100%; margin: 0; overflow: hidden; background: #00035d; }
+    #stage { position: fixed; inset: 0; }
+    #stage canvas { display: block; width: 100%; height: 100%; outline: 0; }
+  </style>
+  <script type="importmap">
+    {"imports":{"three":"./alvorada-chrome-vendor/three.module.js","three/addons/":"./alvorada-chrome-vendor/"}}
+  </script>
+</head>
+<body>
+  <main id="stage" aria-label="Three-dimensional reflective Alvorada blackletter A"></main>
+
+  <script type="module">
+    import * as THREE from 'three';
+    import { SVGLoader } from 'three/addons/SVGLoader.js';
+    import { OrbitControls } from 'three/addons/OrbitControls.js';
+
+    const exportMode = new URLSearchParams(location.search).has('render');
+
+    const stage = document.querySelector('#stage');
+    const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: false, preserveDrawingBuffer: true, powerPreference: 'high-performance' });
+    renderer.setPixelRatio(exportMode ? 1 : Math.min(window.devicePixelRatio || 1, 2));
+    renderer.setSize(exportMode ? 2160 : window.innerWidth, exportMode ? 2160 : window.innerHeight);
+    renderer.outputColorSpace = THREE.SRGBColorSpace;
+    renderer.toneMapping = THREE.ACESFilmicToneMapping;
+    renderer.toneMappingExposure = 1.18;
+    stage.appendChild(renderer.domElement);
+
+    const scene = new THREE.Scene();
+    scene.background = new THREE.Color('#00035d');
+    scene.environmentIntensity = 4.2;
+    const camera = new THREE.PerspectiveCamera(34, window.innerWidth / window.innerHeight, 0.1, 40);
+    camera.position.set(1.1, 1.15, 3.85);
+    camera.lookAt(0, 0, 0);
+
+    const controls = new OrbitControls(camera, renderer.domElement);
+    controls.target.set(0, 0, 0);
+    controls.enableDamping = true;
+    controls.dampingFactor = 0.055;
+    controls.minDistance = 2.8;
+    controls.maxDistance = 8;
+    controls.maxPolarAngle = Math.PI * 0.48;
+    controls.update();
+    if (exportMode) controls.enabled = false;
+
+    function makeStudioEnvironment() {
+      const canvas = document.createElement('canvas');
+      canvas.width = 1024;
+      canvas.height = 512;
+      const ctx = canvas.getContext('2d');
+      const wash = ctx.createLinearGradient(0, 0, 0, 512);
+      wash.addColorStop(0, '#858991');
+      wash.addColorStop(.24, '#282b31');
+      wash.addColorStop(.5, '#090a0c');
+      wash.addColorStop(.76, '#6b7078');
+      wash.addColorStop(1, '#17191d');
+      ctx.fillStyle = wash;
+      ctx.fillRect(0, 0, 1024, 512);
+      const panel = (x, y, w, h, alpha = 1) => {
+        ctx.save();
+        ctx.globalAlpha = alpha;
+        const fade = ctx.createLinearGradient(x, 0, x + w, 0);
+        fade.addColorStop(0, 'rgba(245,248,255,0)');
+        fade.addColorStop(.17, 'rgba(245,248,255,.62)');
+        fade.addColorStop(.83, 'rgba(245,248,255,.62)');
+        fade.addColorStop(1, 'rgba(245,248,255,0)');
+        ctx.fillStyle = fade;
+        ctx.fillRect(x, y, w, h);
+        ctx.restore();
+      };
+      panel(80, 72, 110, 255, .9);
+      panel(365, 36, 180, 190, .72);
+      panel(360, 0, 304, 512, 1);
+      panel(705, 100, 88, 300, .8);
+      panel(900, 50, 52, 220, .46);
+      const strip = ctx.createLinearGradient(0, 0, 0, 1);
+      strip.addColorStop(0, 'rgba(255,255,255,0)');
+      strip.addColorStop(.5, 'rgba(255,255,255,.56)');
+      strip.addColorStop(1, 'rgba(255,255,255,0)');
+      ctx.fillStyle = strip;
+      ctx.fillRect(0, 398, 1024, 16);
+      const texture = new THREE.CanvasTexture(canvas);
+      texture.mapping = THREE.EquirectangularReflectionMapping;
+      texture.colorSpace = THREE.SRGBColorSpace;
+      texture.needsUpdate = true;
+      return texture;
+    }
+    scene.environment = makeStudioEnvironment();
+
+    function makeMicrograin() {
+      const canvas = document.createElement('canvas');
+      canvas.width = canvas.height = 256;
+      const ctx = canvas.getContext('2d');
+      const pixels = ctx.createImageData(canvas.width, canvas.height);
+      let seed = 26051986;
+      for (let i = 0; i < pixels.data.length; i += 4) {
+        seed = (seed * 1664525 + 1013904223) >>> 0;
+        const v = 112 + (seed & 63);
+        pixels.data[i] = pixels.data[i + 1] = pixels.data[i + 2] = v;
+        pixels.data[i + 3] = 255;
+      }
+      ctx.putImageData(pixels, 0, 0);
+      const tex = new THREE.CanvasTexture(canvas);
+      tex.wrapS = tex.wrapT = THREE.RepeatWrapping;
+      tex.repeat.set(3, 3);
+      return tex;
+    }
+    const micrograin = makeMicrograin();
+
+    const key = new THREE.DirectionalLight(0xfff8ef, 4.2);
+    key.position.set(-3.5, 6.5, 4.4);
+    scene.add(key);
+    const fill = new THREE.DirectionalLight(0xc6d3ed, 2.3);
+    fill.position.set(4.5, 3.6, -2.4);
+    scene.add(fill);
+    const edge = new THREE.DirectionalLight(0xffffff, 1.4);
+    edge.position.set(0.2, 4.5, -5);
+    scene.add(edge);
+    scene.add(new THREE.HemisphereLight(0xc8d3e4, 0x17181b, 0.65));
+
+    async function addRaisedA() {
+      const response = await fetch('./alvorada-medieval-a.svg');
+      if (!response.ok) throw new Error(`Could not load the Alvorada A SVG (${response.status})`);
+      const svgText = await response.text();
+      const parsed = new SVGLoader().parse(svgText);
+      const shapes = parsed.paths.flatMap(path => SVGLoader.createShapes(path));
+      if (!shapes.length) throw new Error('No filled letter shapes found in alvorada-medieval-a.svg');
+      const relief = new THREE.Group();
+      const reliefMaterial = new THREE.MeshPhysicalMaterial({
+        color: '#ffffff', metalness: .98, roughness: .085, clearcoat: 1, clearcoatRoughness: .055,
+        bumpMap: micrograin, bumpScale: .0015
+      });
+      for (const shape of shapes) {
+        const geo = new THREE.ExtrudeGeometry(shape, {
+          depth: .13, bevelEnabled: true, bevelSegments: 5,
+          steps: 1, bevelSize: .018, bevelThickness: .02, curveSegments: 32
+        });
+        geo.computeBoundingBox();
+        const bounds = geo.boundingBox;
+        const width = bounds.max.x - bounds.min.x;
+        const height = bounds.max.y - bounds.min.y;
+        geo.translate(-(bounds.min.x + bounds.max.x) / 2, -(bounds.min.y + bounds.max.y) / 2, -bounds.min.z);
+        geo.scale(.98 / width, 1.68 / height, 1);
+        geo.computeVertexNormals();
+        const letter = new THREE.Mesh(geo, reliefMaterial);
+        letter.position.z = 0;
+        relief.add(letter);
+      }
+      relief.rotation.y = -.12;
+      scene.add(relief);
+    }
+
+    function render() {
+      controls.update();
+      renderer.render(scene, camera);
+    }
+    function resize() {
+      const width = window.innerWidth;
+      const height = window.innerHeight;
+      camera.aspect = width / height;
+      camera.updateProjectionMatrix();
+      if (exportMode) return;
+      renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
+      renderer.setSize(width, height);
+      render();
+    }
+    window.addEventListener('resize', resize);
+
+    await addRaisedA();
+    render();
+    window.__ALVORADA_SCENE_READY__ = true;
+    if (exportMode) {
+      renderer.setPixelRatio(1);
+      renderer.setSize(2160, 2160, false);
+      camera.aspect = 1;
+      camera.updateProjectionMatrix();
+      render();
+    }
+    renderer.setAnimationLoop(render);
+  </script>
+</body>
+</html>

@@ -4,7 +4,8 @@
 #let azul = rgb("#00035d")
 #let papel = rgb("#f3ead7")
 #let tinta = papel
-#let serif = "EB Garamond 12"
+#let serif = "EB Garamond"
+#let display = "MEKZANTINE"
 
 #set page(
   width: 1080pt,
@@ -45,6 +46,10 @@
   }
 }
 
+#let font-credit = place(bottom + left, dx: 104pt, dy: -84pt)[
+  #text(size: 16pt)[Mekzantine by MEK.txt]
+]
+
 // Use this for a strong opening or closing card.
 #let title-page(title, subtitle: none, number: none, bg: none) = {
   if bg != none { backdrop(bg) }
@@ -52,7 +57,7 @@
   frame(
     align(center + horizon)[
       #v(132pt)
-      #text(size: 96pt, weight: "regular")[#title]
+      #text(font: display, size: 96pt, weight: "regular")[#title]
       #if subtitle != none [
         #v(28pt)
         #text(size: 33pt)[#subtitle]
@@ -76,7 +81,7 @@
     }
     block(width: 760pt)[
       #set par(leading: 0.05em)
-      #text(size: 84pt, weight: "regular")[#heading]
+      #text(font: display, size: 84pt, weight: "regular")[#heading]
     ]
     if body != none {
       v(44pt)
@@ -108,13 +113,48 @@
 #let closing-page(number: none) = {
   header
   place(bottom + right)[#image("alvorada-medieval-a.svg", width: 500pt)]
+  font-credit
   footer(number: number, on_left: true)
+}
+
+// Occasional 3D ending with the blackletter A as a chrome object.
+#let closing-chrome-page(number: none) = {
+  backdrop("alvorada-chrome-a.png")
+  header
+  font-credit
+  footer(number: number, on_left: true)
+}
+
+// Chrome hymn ending: no header or footer, only the centered verse.
+#let closing-hymn-page() = {
+  backdrop("alvorada-chrome-a.png")
+  place(center + horizon)[
+    #box(fill: rgb("#00035d").transparentize(38%), inset: 34pt)[
+      #block(width: 760pt)[
+        #set par(leading: 0.20em)
+        #align(center)[
+          #text(size: 42pt, lang: "de")[
+            Nun danket alle Gott #linebreak()
+            mit Herzen, Mund und Händen, #linebreak()
+            der große Dinge tut #linebreak()
+            an uns und allen Enden, #linebreak()
+            der uns von Mutterleib #linebreak()
+            und Kindesbeinen an #linebreak()
+            unzählig viel zugut #linebreak()
+            bis hierher hat getan.
+          ]
+        ]
+      ]
+    ]
+  ]
+  place(bottom + center, dy: -36pt)[#text(size: 16pt)[Mekzantine by MEK.txt]]
 }
 
 // Occasional alternate ending using the pixelated Alvorada crest.
 #let closing-seal-page(number: none) = {
   header
   place(bottom + right)[#image("brasaoalv-pixel.png", width: 440pt)]
+  font-credit
   footer(number: number, on_left: true)
 }
 

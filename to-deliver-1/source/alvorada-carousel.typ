@@ -1,0 +1,209 @@
+// Alvorada Instagram carousel template
+// Output: square 1080 x 1080 pt pages. Export PNGs at 1x or 2x for Instagram.
+
+#let azul = rgb("#00035d")
+#let papel = rgb("#f3ead7")
+#let tinta = papel
+#let serif = "EB Garamond"
+#let display = "MEKZANTINE"
+
+#set page(
+  width: 1080pt,
+  height: 1080pt,
+  margin: 0pt,
+  fill: azul,
+)
+#set text(
+  font: serif,
+  fill: tinta,
+  lang: "pt",
+  hyphenate: false,
+)
+#set par(leading: 0.35em)
+
+#let frame(body) = block(
+  width: 100%,
+  height: 100%,
+  inset: (x: 104pt, y: 96pt),
+  body,
+)
+
+#let backdrop(path) = place(top + left,
+  image(path, width: 1080pt, height: 1080pt, fit: "cover"),
+)
+
+#let header = place(top + center, dy: 72pt)[
+  #text(size: 21pt, weight: "bold", tracking: 1.5pt)[movimento alvorada]
+]
+
+#let footer(number: none, on_left: false) = {
+  if number != none {
+    if on_left {
+      place(bottom + left, dx: 104pt, dy: -50pt)[#text(size: 21pt)[#number]]
+    } else {
+      place(bottom + right, dx: -104pt, dy: -50pt)[#text(size: 21pt)[#number]]
+    }
+  }
+}
+
+#let font-credit = place(bottom + left, dx: 104pt, dy: -84pt)[
+  #text(size: 16pt)[Mekzantine by MEK.txt]
+]
+
+// Use this for a strong opening or closing card.
+#let title-page(title, subtitle: none, number: none, bg: none) = {
+  if bg != none { backdrop(bg) }
+  header
+  frame(
+    align(center + horizon)[
+      #v(132pt)
+      #text(font: display, size: 96pt, weight: "regular")[#title]
+      #if subtitle != none [
+        #v(28pt)
+        #text(size: 33pt)[#subtitle]
+      ]
+    ]
+  )
+  footer(number: number)
+}
+
+// Use this for text-led carousel cards. Keep titles short for the book feel.
+#let text-page(heading, body: none, kicker: none, number: none, bg: none, seal: none) = {
+  if bg != none { backdrop(bg) }
+  if seal != none {
+    place(bottom + right, dx: -76pt, dy: -112pt)[#image(seal, width: 340pt)]
+  }
+  header
+  frame({
+    if kicker != none {
+      text(size: 21pt, weight: "bold", tracking: 1.2pt, upper(kicker))
+      v(76pt)
+    }
+    block(width: 760pt)[
+      #set par(leading: 0.05em)
+      #text(font: display, size: 84pt, weight: "regular")[#heading]
+    ]
+    if body != none {
+      v(44pt)
+      block(width: 720pt)[
+        #text(size: 33pt)[#body]
+      ]
+    }
+  })
+  footer(number: number)
+}
+
+// Use this for artwork. Images are contained, never cropped or stretched.
+#let image-page(path, caption: none, number: none, bg: none) = {
+  if bg != none { backdrop(bg) }
+  header
+  frame({
+    align(center)[
+      #image(path, width: 908pt, height: 820pt, fit: "contain")
+    ]
+    if caption != none {
+      v(24pt)
+      align(center)[#text(size: 27pt)[#caption]]
+    }
+  })
+  footer(number: number)
+}
+
+// Default ending: supplied blackletter A vector, aligned flush to bottom and right.
+#let closing-page(number: none) = {
+  header
+  place(bottom + right)[#image("alvorada-medieval-a.svg", width: 500pt)]
+  font-credit
+  footer(number: number, on_left: true)
+}
+
+// Occasional 3D ending with the blackletter A as a chrome object.
+#let closing-chrome-page(number: none) = {
+  backdrop("alvorada-chrome-a.png")
+  header
+  font-credit
+  footer(number: number, on_left: true)
+}
+
+// Chrome hymn ending: no header or footer, only the centered verse.
+#let closing-hymn-page() = {
+  backdrop("alvorada-chrome-a.png")
+  place(center + horizon)[
+    #box(fill: rgb("#00035d").transparentize(38%), inset: 34pt)[
+      #block(width: 760pt)[
+        #set par(leading: 0.20em)
+        #align(center)[
+          #text(size: 42pt, lang: "de")[
+            Nun danket alle Gott #linebreak()
+            mit Herzen, Mund und Händen, #linebreak()
+            der große Dinge tut #linebreak()
+            an uns und allen Enden, #linebreak()
+            der uns von Mutterleib #linebreak()
+            und Kindesbeinen an #linebreak()
+            unzählig viel zugut #linebreak()
+            bis hierher hat getan.
+          ]
+        ]
+      ]
+    ]
+  ]
+  place(bottom + center, dy: -36pt)[#text(size: 16pt)[Mekzantine by MEK.txt]]
+}
+
+// Occasional alternate ending using the pixelated Alvorada crest.
+#let closing-seal-page(number: none) = {
+  header
+  place(bottom + right)[#image("brasaoalv-pixel.png", width: 440pt)]
+  font-credit
+  footer(number: number, on_left: true)
+}
+
+// Replace these example pages with your own sequence. Every page stays 1:1.
+#title-page("Alvorada", subtitle: "por um novo alvorecer", number: 1)
+#pagebreak()
+
+#image-page("annunciation-fra-angelico.jpg", caption: "A Anunciação · Fra Angelico", number: 2)
+#pagebreak()
+
+#text-page(
+  [Fizestes-nos #linebreak() para Vós],
+  body: "A inquietação também é procura. O coração busca um lugar onde possa repousar.",
+  kicker: "Santo Agostinho · Confissões, I, 1, 1",
+  number: 3,
+  bg: "bg-noise.png",
+)
+#pagebreak()
+
+#image-page("annunciation-caravaggio.jpg", caption: "A Anunciação · Caravaggio", number: 4)
+#pagebreak()
+
+#text-page(
+  [Nada te #linebreak() perturbe],
+  body: "Tudo passa. A fé permanece. É uma confiança paciente para atravessar a mudança sem perder o centro.",
+  kicker: "Santa Teresa d'Ávila",
+  number: 5,
+)
+#pagebreak()
+
+#text-page(
+  [Ditosa #linebreak() noite],
+  body: "A noite também pode ser passagem. O que parecia separado começa a se aproximar.",
+  kicker: "São João da Cruz · Noite Escura",
+  number: 6,
+)
+#pagebreak()
+
+#image-page("Pasted image (3).png", caption: "A imagem como memória", number: 7)
+#pagebreak()
+
+#text-page(
+  [A manhã não chega #linebreak() de uma vez],
+  body: "A manhã aparece primeiro como uma mudança na cor das coisas. Alvorada é o intervalo entre a noite e a luz.",
+  kicker: "Alvorada · caderno de imagens",
+  number: 8,
+  bg: "bg-blur-a.png",
+  seal: "brasaoalv-watermark.png",
+)
+#pagebreak()
+
+#closing-page(number: 9)
