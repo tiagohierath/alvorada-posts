@@ -2,7 +2,7 @@
   "asset_root": "..",
   "posts": [
     {"type": "text", "heading": "Fizestes-nos\npara Vós", "body": "A inquietação também é procura. O coração busca um lugar onde possa repousar.", "kicker": "Santo Agostinho · Confissões, I, 1, 1", "number": 1, "background": "bg-noise.png"},
-    {"type": "text", "heading": "A manhã não chega\nde uma vez", "body": "A manhã aparece primeiro como uma mudança na cor das coisas.", "kicker": "Alvorada · caderno de imagens", "number": 2, "background": "bg-blur-a.png", "seal": "brasaoalv-watermark.png"},
+    {"type": "text", "heading": "A manhã não\nchega de uma vez", "body": "A manhã aparece primeiro como uma mudança na cor das coisas.", "kicker": "Alvorada · caderno de imagens", "number": 2, "background": "bg-blur-a.png", "seal": "brasaoalv-watermark.png"},
     {"type": "image", "image": "annunciation-fra-angelico.jpg", "caption": "A Anunciação · Fra Angelico", "number": 3},
     {"type": "image", "image": "annunciation-caravaggio.jpg", "caption": "A Anunciação · Caravaggio", "number": 4},
     {"type": "image", "image": "Pasted image (3).png", "caption": "A imagem como memória", "number": 5},

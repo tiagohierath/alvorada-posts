@@ -8,7 +8,7 @@
     {"type": "text", "heading": "Nada te\nperturbe", "body": "Tudo passa. A fé permanece. É uma confiança paciente para atravessar a mudança sem perder o centro.", "kicker": "Santa Teresa d'Ávila", "number": 5},
     {"type": "text", "heading": "Ditosa\nnoite", "body": "A noite também pode ser passagem. O que parecia separado começa a se aproximar.", "kicker": "São João da Cruz · Noite Escura", "number": 6},
     {"type": "image", "image": "Pasted image (3).png", "caption": "A imagem como memória", "number": 7},
-    {"type": "text", "heading": "A manhã não chega\nde uma vez", "body": "A manhã aparece primeiro como uma mudança na cor das coisas. Alvorada é o intervalo entre a noite e a luz.", "kicker": "Alvorada · caderno de imagens", "number": 8, "background": "bg-blur-a.png", "seal": "brasaoalv-watermark.png"},
+    {"type": "text", "heading": "A manhã não\nchega de uma vez", "body": "A manhã aparece primeiro como uma mudança na cor das coisas. Alvorada é o intervalo entre a noite e a luz.", "kicker": "Alvorada · caderno de imagens", "number": 8, "background": "bg-blur-a.png", "seal": "brasaoalv-watermark.png"},
     {"type": "closing-a", "number": 9}
   ]
 }
