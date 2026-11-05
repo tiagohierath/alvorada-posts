@@ -18,12 +18,12 @@
   lang: "pt",
   hyphenate: false,
 )
-#set par(leading: 0.8em)
+#set par(leading: 1.35em)
 
 #let frame(body) = block(
   width: 100%,
   height: 100%,
-  inset: 86pt,
+  inset: (x: 104pt, y: 96pt),
   body,
 )
 
@@ -32,16 +32,16 @@
 )
 
 #let mark = align(right)[
-  #text(size: 22pt, tracking: 4pt)[ALVORADA]
+  #text(size: 14pt, weight: "bold", tracking: 1.5pt)[ALVORADA]
 ]
 
 #let footer(number: none) = {
-  place(bottom + left, dx: 86pt, dy: -54pt)[
-    #image("alvorada-logo.png", width: 34pt, height: 34pt, fit: "contain")
+  place(bottom + left, dx: 104pt, dy: -54pt)[
+    #image("alvorada-logo.png", width: 28pt, height: 28pt, fit: "contain")
   ]
   if number != none {
-    place(bottom + right, dx: -86pt, dy: -48pt)[
-      #text(size: 18pt)[#number]
+    place(bottom + right, dx: -104pt, dy: -50pt)[
+      #text(size: 14pt)[#number]
     ]
   }
 }
@@ -52,11 +52,11 @@
   frame(
     align(center + horizon)[
       #mark
-      #v(120pt)
-      #text(size: 116pt, weight: "regular")[#title]
+      #v(132pt)
+      #text(size: 64pt, weight: "regular")[#title]
       #if subtitle != none [
-        #v(36pt)
-        #text(size: 34pt)[#subtitle]
+        #v(28pt)
+        #text(size: 22pt)[#subtitle]
       ]
     ]
   )
@@ -68,13 +68,17 @@
   if bg != none { backdrop(bg) }
   frame({
     if kicker != none {
-      text(size: 22pt, tracking: 4pt, upper(kicker))
-      v(100pt)
+      text(size: 14pt, weight: "bold", tracking: 1.2pt, upper(kicker))
+      v(76pt)
     }
-    text(size: 78pt, weight: "regular")[#heading]
+    block(width: 760pt)[
+      #text(size: 56pt, weight: "regular")[#heading]
+    ]
     if body != none {
-      v(54pt)
-      text(size: 34pt)[#body]
+      v(44pt)
+      block(width: 720pt)[
+        #text(size: 22pt)[#body]
+      ]
     }
   })
   footer(number: number)
@@ -88,8 +92,8 @@
       #image(path, width: 908pt, height: 820pt, fit: "contain")
     ]
     if caption != none {
-      v(28pt)
-      align(center)[#text(size: 24pt)[#caption]]
+      v(24pt)
+      align(center)[#text(size: 18pt)[#caption]]
     }
   })
   footer(number: number)
@@ -103,7 +107,7 @@
 #pagebreak()
 
 #text-page(
-  "Fizestes-nos para Vós",
+  [Fizestes-nos #linebreak() para Vós],
   body: "A inquietação não é apenas ausência. É também procura, movimento e desejo de encontrar um lugar onde o coração possa repousar.",
   kicker: "Santo Agostinho · Confissões, I, 1, 1",
   number: 3,
@@ -115,7 +119,7 @@
 #pagebreak()
 
 #text-page(
-  "Nada te perturbe",
+  [Nada te #linebreak() perturbe],
   body: "Nada permanece exatamente como era. A fé oferece outra medida para o tempo: uma confiança paciente, capaz de atravessar a mudança sem perder o centro.",
   kicker: "Santa Teresa d'Ávila",
   number: 5,
@@ -123,7 +127,7 @@
 #pagebreak()
 
 #text-page(
-  "Ditosa noite",
+  [Ditosa #linebreak() noite],
   body: "Há uma noite que não é fim, mas passagem. Nela, aquilo que parecia separado se aproxima, e a espera começa a revelar uma forma de encontro.",
   kicker: "São João da Cruz · Noite Escura",
   number: 6,
@@ -134,7 +138,7 @@
 #pagebreak()
 
 #text-page(
-  "A manhã não chega de uma vez",
+  [A manhã não chega #linebreak() de uma vez],
   body: "Ela aparece primeiro como uma alteração quase imperceptível na cor das coisas. Depois, como uma forma de reconhecer o caminho. Alvorada é esse intervalo entre a noite que termina e a luz que ainda está por vir.",
   kicker: "Alvorada · caderno de imagens",
   number: 8,
